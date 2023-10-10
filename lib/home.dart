@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  double _value = 0;
+  double _weight = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,19 +69,20 @@ class Home extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Height", style: TextStyle(color: Colors.white)),
-                Text("170.254 CM", style: TextStyle(color: Colors.white)),
+                Text("${_value.toStringAsFixed(1)} CM",
+                    style: TextStyle(color: Colors.white)),
                 Slider(
                   activeColor: Colors.grey,
                   inactiveColor: Colors.blue,
                   thumbColor: Colors.pink,
                   min: 0,
-                  max: 100,
+                  max: 190,
+                  value: _value,
                   // value: _value,
-                  value: 50,
                   onChanged: (value) {
-                    // setState(() {
-                    //   _value = value;
-                    // });
+                    setState(() {
+                      _value = value;
+                    });
                   },
                 ),
               ],
@@ -91,23 +99,51 @@ class Home extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Weight", style: TextStyle(color: Colors.white)),
-                Text("76", style: TextStyle(color: Colors.white)),
+                Text("$_weight", style: TextStyle(color: Colors.white)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CircleAvatar(
-                        radius: 15,
-                        backgroundColor: Colors.grey,
-                        child:
-                            Text("+", style: TextStyle(color: Colors.white))),
-                    CircleAvatar(
-                        radius: 15,
-                        backgroundColor: Colors.grey,
-                        child:
-                            Text("-", style: TextStyle(color: Colors.white))),
+                    InkWell(
+                      onTap: () {
+                        _weight++;
+                        setState(() {});
+                      },
+                      child: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: Colors.grey,
+                          child:
+                              Text("+", style: TextStyle(color: Colors.white))),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        if (_weight >= 1) _weight--;
+
+                        setState(() {});
+                      },
+                      child: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: Colors.grey,
+                          child:
+                              Text("-", style: TextStyle(color: Colors.white))),
+                    ),
                   ],
                 )
               ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              print("clicked");
+            },
+            child: Container(
+              width: double.infinity,
+              height: 70,
+              color: Colors.pink,
+              child: Text(
+                "CALCULATE",
+                style: TextStyle(color: Colors.white),
+              ),
+              alignment: Alignment.center,
             ),
           ),
         ]),
