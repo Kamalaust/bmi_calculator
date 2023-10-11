@@ -8,8 +8,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double _value = 0;
   double _weight = 0;
+  double _height = 0;
+  double result = 0;
+
+  void calculateBMI() {
+    double heightSquare = _height * _height;
+    result = _weight / heightSquare;
+    setState(() {});
+
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +79,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Height", style: TextStyle(color: Colors.white)),
-                Text("${_value.toStringAsFixed(1)} CM",
+                Text("${_height.toStringAsFixed(1)} CM",
                     style: TextStyle(color: Colors.white)),
                 Slider(
                   activeColor: Colors.grey,
@@ -77,11 +87,11 @@ class _HomeState extends State<Home> {
                   thumbColor: Colors.pink,
                   min: 0,
                   max: 190,
-                  value: _value,
+                  value: _height,
                   // value: _value,
                   onChanged: (value) {
                     setState(() {
-                      _value = value;
+                      _height = value;
                     });
                   },
                 ),
@@ -133,7 +143,30 @@ class _HomeState extends State<Home> {
           ),
           GestureDetector(
             onTap: () {
-              print("clicked");
+              calculateBMI();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                      content: Container(
+                    color: Color(0xff1F1D35),
+                    child: Column(
+                      children: [
+                        Text("YOUR BMI IS: ${result.toStringAsFixed(6)}"),
+                        if (result < 18.5) Text('Underweight'),
+                        if (result > 18.5 && result < 24.9)
+                          Text('Normalweight'),
+                        if (result > 25 && result < 29.9) Text('Overweight'),
+                        if (result >= 30) Text('obesity'),
+                        Text("Underweight less than 18.5"),
+                        Text("Normal weight 18.5-24.9"),
+                        Text("Over weight 25-29.9"),
+                        Text("Obesity 30 or greater"),
+                      ],
+                    ),
+                  ));
+                },
+              );
             },
             child: Container(
               width: double.infinity,
