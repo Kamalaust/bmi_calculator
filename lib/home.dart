@@ -152,16 +152,26 @@ class _HomeState extends State<Home> {
                     color: Color(0xff1F1D35),
                     child: Column(
                       children: [
-                        Text("YOUR BMI IS: ${result.toStringAsFixed(6)}"),
-                        if (result < 18.5) Text('Underweight'),
+                        Text("YOUR BMI IS: ${result.toStringAsFixed(6)}",
+                            style: TextStyle(color: Colors.white)),
+                        if (result < 18.5)
+                          Text('Underweight',
+                              style: TextStyle(color: Colors.white)),
                         if (result > 18.5 && result < 24.9)
-                          Text('Normalweight'),
+                          Text('Normalweight',
+                              style: TextStyle(color: Colors.white)),
                         if (result > 25 && result < 29.9) Text('Overweight'),
-                        if (result >= 30) Text('obesity'),
-                        Text("Underweight less than 18.5"),
-                        Text("Normal weight 18.5-24.9"),
-                        Text("Over weight 25-29.9"),
-                        Text("Obesity 30 or greater"),
+                        if (result >= 30)
+                          Text('obesity',
+                              style: TextStyle(color: Colors.white)),
+                        Text("Underweight less than 18.5",
+                            style: TextStyle(color: Colors.white)),
+                        Text("Normal weight 18.5-24.9",
+                            style: TextStyle(color: Colors.white)),
+                        Text("Over weight 25-29.9",
+                            style: TextStyle(color: Colors.white)),
+                        Text("Obesity 30 or greater",
+                            style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   ));
